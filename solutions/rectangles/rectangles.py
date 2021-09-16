@@ -1,23 +1,6 @@
 """
 Given a random number of points from a graph, determine how many 
 unique rectanges exist.
-
-Possible solution (provided)
-
-1. Determine the X range (lowest to highest) in the collection
-
-2. Create a collection of vertical line segments in which 
-    P1 = x1, y1 
-    P2 = x2, y2 
-    x1 == x2 
-    y1 < y2
-
-3. Create a collection of rectangles between two lines in which
-    line1.x < line2.x
-    line1.y1 == line2.y1
-    line1.y2 == line2.y2
-
-4. Get count of rectangle collection to answer the question.
 """
 import typing
 from objects import Point, Line, Rectangle
