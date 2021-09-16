@@ -1,0 +1,74 @@
+"""
+Given a random number of points from a graph, determine how many 
+unique rectanges exist.
+
+Possible solution (provided)
+
+1. Determine the X range (lowest to highest) in the collection
+
+2. Create a collection of vertical line segments in which 
+    P1 = x1, y1 
+    P2 = x2, y2 
+    x1 == x2 
+    y1 < y2
+
+3. Create a collection of rectangles between two lines in which
+    line1.x < line2.x
+    line1.y1 == line2.y1
+    line1.y2 == line2.y2
+
+4. Get count of rectangle collection to answer the question.
+"""
+import typing
+from objects import Point, Line, Rectangle
+
+# All points in graph
+graph:typing.List[Point] = [
+    Point(1,1), Point(2,1), Point(1,3), 
+    Point(4,1), Point(4,5), Point(2,5), 
+    Point(4,6), Point(1,6), Point(3,3),
+    Point(2,3), Point(3,1), Point(2,6)
+]
+# All line segments key=x val=Line
+line_collection:typing.Dict[int,Line] = {}
+# Found collection of rectangles
+rect_collection:typing.List[Rectangle] = []
+
+# Get the range of x and sort from low to high 
+x_range = [p.X for p in graph]
+x_range = sorted(list(set(x_range)))
+
+# Now get individual line segments per x point
+# all segments for points at that x 
+for x in x_range:
+    line_collection[x] = []
+
+    # All points at specified X
+    x_points = [p for p in graph if p.X == x]
+    # Get segments
+    for point1 in x_points:
+        for point2 in x_points:
+            if point2.Y > point1.Y:
+                line_collection[x].append(Line(point1, point2))
+
+# With the line segment collection from each X point
+# find rectagles.
+for x1 in line_collection:
+    for leftseg in line_collection[x1]:
+        for x2 in line_collection:
+            # Only lines at higher x points to ensure uniqueness
+            if x2 <= x1:
+                continue
+
+            # Match on equal Y1 and Y2 points, produces 0|1 matches
+            rightseg = [seg for seg in line_collection[x2] if leftseg.low.Y == seg.low.Y and leftseg.high.Y == seg.high.Y]
+            if len(rightseg):
+                rect_collection.append(Rectangle(leftseg, rightseg[0]))
+
+# Dump out the results for the points given
+print("Total Points = ", len(graph))
+print("X Range = {} - {}".format(x_range[0], x_range[-1]))
+print("Total rectangles = ", len(rect_collection))
+square_count = 0
+for r in rect_collection:
+    print(r)
