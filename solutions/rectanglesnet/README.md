@@ -1,4 +1,4 @@
-# Rectangles solution - Python
+# Rectangles solution - .NET Core
 
 Every developer knows there is more than one way to solve a problem. The solution here is straight forward. Can you come up with something better?
 

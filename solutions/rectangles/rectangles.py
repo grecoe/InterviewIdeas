@@ -32,7 +32,7 @@ for x in x_range:
     for point1 in x_points:
         for point2 in x_points:
             if point2.Y > point1.Y:
-                line_collection[x].append(Line(point1, point2))
+               line_collection[x].append(Line(point1, point2))
 
 # With the line segment collection from each X point
 # find rectagles.
@@ -48,7 +48,12 @@ for x1 in line_collection:
             if len(rightseg):
                 rect_collection.append(Rectangle(leftseg, rightseg[0]))
 
+lines = 0
+for x in line_collection:
+    lines += len(line_collection[x])
+
 # Dump out the results for the points given
+print("Total Lines = ", lines)
 print("Total Points = ", len(graph))
 print("X Range = {} - {}".format(x_range[0], x_range[-1]))
 print("Total rectangles = ", len(rect_collection))
