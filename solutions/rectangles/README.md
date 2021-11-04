@@ -5,7 +5,9 @@ Every developer knows there is more than one way to solve a problem. The solutio
 ## Step 1
 Get a collection of all x points from the points collection and organize them in lowest to highest order. 
 
-This will be used when creating line segment collections. 
+This will be used when creating line segment collections.
+
+Should create something like a dictionary where the key is the X value and the value is a list of points (X1,Y1), (X1, Y2), etc 
 
 ## Step 2
 Create a collection of vertical lines at each x point. 
